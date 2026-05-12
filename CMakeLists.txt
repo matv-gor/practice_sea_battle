@@ -18,6 +18,9 @@ set(CMAKE_CXX_CLANG_TIDY "clang-tidy")
 
 set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/interface.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ship.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/board.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/game.cpp
 )
 
 set(HEADERS)
