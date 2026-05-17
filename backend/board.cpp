@@ -69,12 +69,16 @@ int Board::shootShip(int inputNumber, char inputLetter) {
     int row = inputNumber;
     int col = inputLetter - Constants::kLetterToNumberSymbol;
 
-    if (board[row][col] == 0) {
-        board[row][col] = 1;
+    if (row < 0 || row > 9 || col < 0 || col > 9) {
+        return -1;
+    }
+
+    if (board[row][col] == 0 || board[row][col] == 1) {
+        board[row][col] = 4;
         return 0;
     }
 
-    if (board[row][col] == 1 || board[row][col] == 3) {
+    if (board[row][col] == 3 || board[row][col] == 4) {
         return -1;
     }
 
