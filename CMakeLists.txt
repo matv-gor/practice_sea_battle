@@ -6,10 +6,23 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(SFML_GRAPHICS REQUIRED IMPORTED_TARGET sfml-graphics>=3.0)
+include(FetchContent)
 
-set(CMAKE_CXX_CLANG_TIDY "clang-tidy")
+FetchContent_Declare(
+    SFML
+    GIT_REPOSITORY https://github.com/SFML/SFML.git
+    GIT_TAG 3.0.0
+    GIT_SHALLOW ON
+    EXCLUDE_FROM_ALL
+    SYSTEM
+)
+
+FetchContent_MakeAvailable(SFML)
+
+find_program(CLANG_TIDY_EXE NAMES clang-tidy)
+if(CLANG_TIDY_EXE)
+    set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE}")
+endif()
 
 set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
@@ -44,7 +57,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
 )
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
-    PkgConfig::SFML_GRAPHICS
+    SFML::Graphics
 )
 
 if(ENABLE_DEBUG)
