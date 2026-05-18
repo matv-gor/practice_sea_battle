@@ -14,8 +14,12 @@ namespace frontend {
 
 int runApplication() {
 
-  sf::RenderWindow window(sf::VideoMode({1280, 760}), "Sea Battle",
-                          sf::Style::Default);
+  constexpr sf::Vector2f viewSize{1280.f, 760.f};
+
+  const sf::VideoMode desktopMode = sf::VideoMode::getDesktopMode();
+  sf::RenderWindow window(desktopMode, "Sea Battle", sf::Style::Default);
+  window.setPosition({0, 0});
+  window.setView(sf::View(sf::FloatRect({0.f, 0.f}, viewSize)));
   window.setVerticalSyncEnabled(true);
 
   const std::optional<sf::Font> font = loadFont();
